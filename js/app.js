@@ -7,13 +7,13 @@ class Enemy {
     this.side = 101;
     this.sprite = 'images/enemy-bug.png';
   }
-  //draw enemy on board
+    //draw enemy on board
   render(){
       ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
   //update enemy position - use dt - delta time between ticks
   //reset position when they hit end of board
-  update(dt) {
+  update(dt){
     if(this.x < this.side*5){
       this.x += 100*dt;
     }
@@ -39,18 +39,28 @@ class Hero {
     this.width = 30;
   }
   //methods
+  //render pic
+  render(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
       //update position on board & check for crashes or wins
   update(){
     for(let enemy of allEnemies){
-      if (this.y === enemy.y && this.x === enemy.x){
-        console.log('collide');
+      if (this.y === enemy.y && this.x > enemy.x -50 && this.x < enemy.x + 50){
+        alert('You lose!');
+        this.reset();
+      }
+      if (this.y === -30){
+        alert('You win!');
+        setTimeout(this.reset(), 5000);
       }
     }
   }
-      //render pic
-  render(){
-      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  reset(){
+    this.y = 101*2
+    this.y = (83*5)-30;
   }
+
       //handleInput allowedKeys
       // @param {string} input
   handleInput(input){
@@ -61,7 +71,7 @@ class Hero {
         }
         break;
       case 'up':
-        if (this.y > this.forward){
+        if (this.y > 0){
             this.y -= this.forward;
         }
         break;
@@ -76,19 +86,11 @@ class Hero {
         }
         break;
     }
-
-
   }
       //upon win, reset player position
 }
 
 const player = new Hero();
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
