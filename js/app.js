@@ -1,9 +1,10 @@
 // Enemies our player must avoid
 
 class Enemy {
-  constructor(){
-    this.x = 0;
-    this.y = 0;
+  constructor(x=-101, y=65){
+    this.x = x;
+    this.y = y;
+    this.side = 101;
     this.sprite = 'images/enemy-bug.png';
   }
   //draw enemy on board
@@ -13,19 +14,25 @@ class Enemy {
   //update enemy position - use dt - delta time between ticks
   //reset position when they hit end of board
   update(dt) {
-
+    if(this.x < this.side*5){
+      this.x += 100*dt;
+    }
+    else {
+      this.x = -101;
+    }
   }
 }
- const bugs = new Enemy();
+ const bug1 = new Enemy(-101, 148);
+ const bug2 = new Enemy(-301, 231);
  const allEnemies = [];
- allEnemies.push(bugs);
+ allEnemies.push(bug1, bug2);
 
 
 // Now write your own player class
 class Hero {
   constructor(){
     this.x = 101*2;
-    this.y = 83*5;
+    this.y = 83*4.8;
     this.forward = 83;
     this.side = 101;
     this.sprite = 'images/char-boy.png';
@@ -44,16 +51,24 @@ class Hero {
   handleInput(input){
     switch(input) {
       case 'left':
-        this.x -= this.side;
+        if (this.x>0){
+            this.x -= this.side;
+        }
         break;
       case 'up':
-        this.y -= this.forward;
+        if (this.y > this.forward){
+            this.y -= this.forward;
+        }
         break;
       case 'right':
-        this.x += this.side;
+        if (this.x < this.side*4) {
+            this.x += this.side;
+        }
         break;
       case 'down':
-        this.y += this.forward;
+        if (this.y < this.forward*4){
+            this.y += this.forward;
+        }
         break;
     }
 
