@@ -12,7 +12,7 @@ This game will let you use the arrow keys on the keyboard to try to get the play
 ## Instructions
 To clone the GitHub repository with all files:
 
-$ git clone https://github.com/kyates0113/memory-game.git
+$ git clone https://github.com/kyates0113/arcade-game.git
 
 Built mainly for desktop.
 Compatible with firefox and chrome.
